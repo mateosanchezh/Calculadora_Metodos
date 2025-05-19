@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-
 @Configuration
 public class CorsConfig {
 
@@ -14,18 +13,17 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        // Permite solicitudes desde cualquier origen
-        config.addAllowedOrigin("*");
+        // ⚠️ Usa el origen específico de tu frontend
+        config.addAllowedOrigin("http://127.0.0.1:5500");
 
-
-        // Permite los métodos HTTP específicos
+        // Métodos permitidos
         config.addAllowedMethod("GET");
         config.addAllowedMethod("POST");
 
-        // Permite todas las cabeceras
+        // Cabeceras permitidas
         config.addAllowedHeader("*");
 
-        // Permite que las credenciales se incluyan en la solicitud
+        // Puedes comentar esta línea si no usas cookies
         config.setAllowCredentials(true);
 
         source.registerCorsConfiguration("/api/**", config);
