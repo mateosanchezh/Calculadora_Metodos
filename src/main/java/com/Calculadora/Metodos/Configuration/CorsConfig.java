@@ -14,7 +14,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         // ⚠️ Usa el origen específico de tu frontend
-        config.addAllowedOrigin("http://127.0.0.1:5500");
+        config.addAllowedOrigin("*");
 
         // Métodos permitidos
         config.addAllowedMethod("GET");
