@@ -5,28 +5,24 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+
+import java.util.List;
+
 @Configuration
 public class CorsConfig {
 
     @Bean
     public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
-        // ⚠️ Usa el origen específico de tu frontend
-        config.addAllowedOrigin("*");
+        config.setAllowedOriginPatterns(List.of("*")); // Acepta peticiones desde cualquier origen
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Métodos permitidos
+        config.setAllowedHeaders(List.of("*")); // Permite cualquier cabecera
+        config.setAllowCredentials(true); // Habilita envío de cookies o auth
 
-        // Métodos permitidos
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("POST");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config); // Aplica CORS a todos los endpoints
 
-        // Cabeceras permitidas
-        config.addAllowedHeader("*");
-
-        // Puedes comentar esta línea si no usas cookies
-        config.setAllowCredentials(true);
-
-        source.registerCorsConfiguration("/api/**", config);
         return new CorsFilter(source);
     }
 }
